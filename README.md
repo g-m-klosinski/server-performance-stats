@@ -2,6 +2,10 @@
 
 DevOps project from https://roadmap.sh/devops/projects list
 
-Project description: https://roadmap.sh/projects/server-stats
+## Launching
 
-Instruction: *Write a script to analyse basic server performance stats*
+To see the stats run `server-stats.sh`.
+
+## Reference
+
+Project description is availablbe at https://roadmap.sh/projects/server-stats.

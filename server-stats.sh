@@ -1,3 +1,5 @@
 #!/bin/bash
 
-top -n 1
+echo Usage
+echo -e "CPU\tMemory\tDisk"
+

@@ -16,24 +16,18 @@
 
 # Function to get CPU usage
 get_cpu_usage() {
-    echo "CPU Usage:"
-    # Get the total CPU usage
-    cpu_usage=$(top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1}')
-    echo "Total CPU Usage: $cpu_usage%"
+    cpu_usage=$(top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{printf "%s", 100 - $1}')
+    echo "CPU usage: $cpu_usage%"
 }
 
 # Function to get memory usage
 get_memory_usage() {
-    echo "Memory Usage:"
-    # Get the total memory usage
     mem_info=$(free -m)
     total_mem=$(echo "$mem_info" | awk 'NR==2{print $2}')
     used_mem=$(echo "$mem_info" | awk 'NR==2{print $3}')
     free_mem=$(echo "$mem_info" | awk 'NR==2{print $4}')
     mem_percentage=$(echo "scale=2; $used_mem/$total_mem*100" | bc)
-    echo "Total Memory: $total_mem MB"
-    echo "Used Memory: $used_mem MB ($mem_percentage%)"
-    echo "Free Memory: $free_mem MB"
+    echo "memory usage: $used_mem/$total_mem MB ($mem_percentage%)"
 }
 
 # Function to get disk usage
@@ -65,7 +59,6 @@ get_top_processes() {
 # Main function to call all other functions
 main() {
     get_cpu_usage
-    echo
     get_memory_usage
     echo
     get_disk_usage

@@ -50,20 +50,16 @@ get_disk_usage() {
     echo "Free Disk: $free_disk"
 }
 
-# Function to get top 5 processes by CPU usage.
-get_top_cpu_processes() {
-    top_processes=$(ps -eo comm --sort=-%cpu | head -n 6 \
+# Function to get top 5 processes by a given resource
+# usage.
+get_top_processes() {
+    criterion_symbol=$1
+    criterion_name=$2
+    top_processes=$(ps -eo comm --sort=-"$criterion_symbol" | head -n 6 \
     | awk 'NR>1')
     processes_csv=$(echo "$top_processes" | paste -sd', ' -)
 
-    echo "Top processes by CPU usage: $processes_csv"
-}
-
-# Function to get top 5 processes by memory usage
-get_top_memory_processes() {
-    echo "Top 5 Processes by Memory Usage:"
-    # Get the top 5 processes by memory usage
-    ps -eo pid,comm,%mem --sort=-%mem | head -n 6
+    echo "$criterion_name heaviest: $processes_csv"
 }
 
 # Main function to call all other functions
@@ -74,9 +70,8 @@ main() {
     echo
     get_disk_usage
     echo
-    get_top_cpu_processes
-    echo
-    get_top_memory_processes
+    get_top_processes "%cpu" CPU
+    get_top_processes "%mem" memory
 }
 
 # Call the main function

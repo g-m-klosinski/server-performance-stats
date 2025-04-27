@@ -48,7 +48,7 @@ main() {
 	disk_free=${disk_free%?}
 	disk_percentage=$(echo $disk_info | awk '{print $5}')
 
-	echo "Usage"
+	echo "Resource Usage"
 	echo
 	printf "\t%%\tused\tfree\ttotal\n"
 	printf "CPU\t%s\n" $cpu_usage
@@ -58,6 +58,9 @@ main() {
 	       	$disk_percentage $disk_used $disk_free $disk_total	
 
 	echo
+	echo "Heaviest Processes"
+	echo
+	printf "by CPU\tby memory\n"
 	get_top_processes "%cpu" CPU
 	get_top_processes "%mem" memory
 }

@@ -19,11 +19,11 @@
 print_heaviest_processes() {
 	printf "%-10s %-10s\n" "by CPU" "by memory"
 
-	top_cpu=($(ps -eo comm --sort=-%cpu | awk 'NR>1 && NR<6'))
-	top_memory=($(ps -eo comm --sort=-%mem | awk 'NR>1 && NR<6'))
+	top_cpu=($(ps -eo comm --sort=-%cpu | awk 'NR>=2 && NR<=7'))
+	top_memory=($(ps -eo comm --sort=-%mem | awk 'NR>=2 && NR<=7'))
 	
 	for ((i=0; i < 5; i++)); do
-		printf "%-10s %-10s\n" ${top_cpu[i]} ${top_memory[i]}
+		printf "%-10.10s %-10.10s\n" ${top_cpu[i]} ${top_memory[i]}
 	done
 }
 
